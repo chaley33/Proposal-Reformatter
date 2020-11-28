@@ -2,7 +2,7 @@ from docx import Document
 from docx.shared import RGBColor
 from docx.shared import Pt
 
-f = open('path.DAT', 'w+')
+f = open('path.dat', 'w+')
 content = f.read()
 if content == '':
     path = input("Enter directory path:\n")
