@@ -2,12 +2,14 @@ from docx import Document
 from docx.shared import RGBColor
 from docx.shared import Pt
 
-f = open('path.dat', 'w+')
+f = open('path.dat', 'r')
 content = f.read()
 if content == '':
     path = input("Enter directory path:\n")
 else:
     path = content
+
+f.close()
 
 path = path.replace('\"', '')
 
