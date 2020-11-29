@@ -3,6 +3,18 @@ from docx.shared import RGBColor
 from docx.shared import Pt
 import os
 
+
+
+def remove_column(table, column, index):
+    for cell in column.cells:
+        cell._tc.getparent().remove(cell._tc)
+
+    grid = table._tbl.find("w:tblGrid", table._tbl.nsmap)
+    col_elem = grid[index]
+    grid.remove(col_elem)
+
+
+
 f = open('path.dat', 'r')
 content = f.readline().rstrip()
 f.close()
@@ -51,6 +63,15 @@ for table in document.tables:
             for run in paragraph.runs:
                 if run.font.size != None and run.font.size.pt == 4.5:
                     run.font.size = Pt(7.5)
+
+for table in document.tables:
+    for index, column in enumerate(table.columns):
+        for cell in column.cells:
+            for paragraph in cell.paragraphs:
+                if 'Discount' in paragraph.text:
+                    remove_column(table, column, index)
+                        
+                
 
 document.save(path)
 print("Document successfully edited.")
